@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Learning Portal - Case Study</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+
+background:linear-gradient(135deg,#6a11cb,#2575fc);
+color:#fff;
+
+}
+
+header{
+
+padding:30px;
+text-align:center;
+
+}
+
+header h1{
+
+font-size:40px;
+
+}
+
+.container{
+
+width:90%;
+max-width:1200px;
+margin:auto;
+
+}
+
+.card{
+
+background:white;
+color:#333;
+padding:25px;
+margin:20px 0;
+border-radius:15px;
+box-shadow:0 10px 20px rgba(0,0,0,.2);
+
+}
+
+.card h2{
+
+color:#2575fc;
+margin-bottom:15px;
+
+}
+
+input,select,textarea{
+
+width:100%;
+padding:12px;
+margin-top:8px;
+margin-bottom:15px;
+border-radius:8px;
+border:1px solid #ccc;
+
+}
+
+button{
+
+background:#2575fc;
+color:white;
+padding:12px 20px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+
+}
+
+button:hover{
+
+background:#0056d6;
+
+}
+
+details{
+
+margin-top:20px;
+background:#eef5ff;
+padding:15px;
+border-radius:10px;
+
+}
+
+summary{
+
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+
+}
+
+pre{
+
+background:#222;
+color:#0f0;
+padding:10px;
+border-radius:8px;
+overflow:auto;
+
+}
+
+.correct{
+
+color:green;
+font-weight:bold;
+
+}
+
+.wrong{
+
+color:red;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>🎓 E-Learning Portal</h1>
+
+<p>Case Study on HTML, HTTP, XML & Web Communication Standards</p>
+
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h2>Student Registration</h2>
+
+<form onsubmit="event.preventDefault();alert('Registration Successful!')">
+
+<label>Name</label>
+
+<input type="text" required>
+
+<label>Email</label>
+
+<input type="email" required>
+
+<label>Course</label>
+
+<select>
+
+<option>Web Technology</option>
+
+<option>Python</option>
+
+<option>Java</option>
+
+<option>Artificial Intelligence</option>
+
+</select>
+
+<label>Comments</label>
+
+<textarea rows="4"></textarea>
+
+<button>Register</button>
+
+</form>
+
+</div>
+
+<div class="card">
+
+<h2>📖 Case Study Questions & Answers</h2>
+
+<details>
+
+<summary>Question 1 – Video Embedding</summary>
+
+<h3>Data Snippet</h3>
+
+<pre>
+A. &lt;media&gt;
+B. &lt;video src="video.mp4" controls&gt;&lt;/video&gt;
+C. &lt;movie&gt;
+D. &lt;vid&gt;
+</pre>
+
+<p class="correct">
+Answer: B. &lt;video&gt;
+</p>
+
+<p>
+
+The <b>&lt;video&gt;</b> tag is the official HTML5 element used to embed videos.
+
+It supports controls such as Play, Pause, Volume, and Full Screen.
+
+For the E-Learning Portal, lecture videos can be displayed using the
+&lt;video&gt; element.
+
+</p>
+
+</details>
+
+<details>
+
+<summary>Question 2 – Form Submission</summary>
+
+<pre>
+
+A. GET
+
+B. POST
+
+C. PUT
+
+D. DELETE
+
+</pre>
+
+<p class="correct">
+
+Answer: POST
+
+</p>
+
+<p>
+
+Students register using personal information such as name and email.
+
+POST securely sends data inside the request body.
+
+GET exposes data in the URL.
+
+Therefore POST is the correct method.
+
+</p>
+
+</details>
+
+<details>
+
+<summary>Question 3 – Semantic Navigation</summary>
+
+<pre>
+
+A. &lt;div&gt;
+
+B. &lt;nav&gt;
+
+C. &lt;section&gt;
+
+D. &lt;header&gt;
+
+</pre>
+
+<p class="correct">
+
+Answer: &lt;nav&gt;
+
+</p>
+
+<p>
+
+The navigation menu of the E-Learning Portal contains links such as
+
+Home,
+
+Courses,
+
+Assignments,
+
+Contact.
+
+The semantic HTML element used is
+
+&lt;nav&gt;
+
+because it clearly defines navigation links.
+
+</p>
+
+</details>
+
+<details>
+
+<summary>Question 4 – XML Syntax</summary>
+
+<pre>
+
+A. &lt;note&gt;&lt;to&gt;User&lt;/to&gt;&lt;from&gt;Admin&lt;/from&gt;
+
+B. &lt;note&gt;&lt;to&gt;User&lt;/to&gt;&lt;from&gt;Admin&lt;/from&gt;&lt;/note&gt;
+
+C. &lt;note&gt;&lt;to&gt;User&lt;/from&gt;&lt;/note&gt;
+
+D. &lt;note to="User"&gt;&lt;/note
+
+</pre>
+
+<p class="correct">
+
+Answer: B
+
+</p>
+
+<h3>Explanation</h3>
+
+<ul>
+
+<li>A → Missing closing &lt;/note&gt; tag.</li>
+
+<li>B → Correct XML syntax.</li>
+
+<li>C → Closing tags do not match.</li>
+
+<li>D → Closing bracket is missing.</li>
+
+</ul>
+
+</details>
+
+<details>
+
+<summary>Question 5 – Web Communication Protocol</summary>
+
+<pre>
+
+A. FTP
+
+B. HTTP
+
+C. SMTP
+
+D. SNMP
+
+</pre>
+
+<p class="correct">
+
+Answer: HTTP
+
+</p>
+
+<p>
+
+The browser communicates with the E-Learning Portal server using HTTP.
+
+HTTP transfers web pages, CSS, JavaScript and multimedia.
+
+FTP is for file transfer.
+
+SMTP is for email.
+
+SNMP is for network management.
+
+</p>
+
+</details>
+
+</div>
+
+</div>
+
+</body>
+</html>

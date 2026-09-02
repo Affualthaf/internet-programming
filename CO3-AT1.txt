@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CO-3 | Java Web Application Lab</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+    font-family:Inter,Arial,sans-serif;
+    color:#172033;
+    background:#f7f8fc;
+    line-height:1.65;
+    overflow-x:hidden;
+}
+body:before{
+    content:"";
+    position:fixed;
+    width:500px;height:500px;
+    border-radius:50%;
+    background:#8b5cf633;
+    filter:blur(100px);
+    top:-180px;left:-180px;
+    z-index:-1;
+}
+body:after{
+    content:"";
+    position:fixed;
+    width:450px;height:450px;
+    border-radius:50%;
+    background:#06b6d433;
+    filter:blur(110px);
+    right:-180px;bottom:-150px;
+    z-index:-1;
+}
+a{text-decoration:none;color:inherit}
+.container{width:min(1180px,92%);margin:auto}
+
+/* NAVBAR */
+header{
+    position:sticky;top:0;z-index:50;
+    background:#ffffffdd;
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid #e7e8f0;
+}
+.navbar{
+    min-height:76px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{
+    width:44px;height:44px;border-radius:13px;
+    display:grid;place-items:center;
+    color:white;font-weight:800;font-size:19px;
+    background:linear-gradient(135deg,#7c3aed,#ec4899);
+    box-shadow:0 8px 20px #7c3aed40;
+}
+.brand h1{font-family:"Space Grotesk";font-size:1.05rem}
+.brand span{display:block;color:#7b8192;font-size:.72rem}
+nav ul{display:flex;list-style:none;gap:5px;flex-wrap:wrap}
+nav a{padding:9px 12px;border-radius:9px;font-size:.86rem;font-weight:600;color:#555b6e}
+nav a:hover{background:#f0eafd;color:#6d28d9}
+
+/* HERO */
+.hero{
+    position:relative;
+    padding:82px 0 65px;
+    text-align:center;
+}
+.hero .mini{
+    display:inline-flex;
+    padding:7px 14px;
+    border-radius:30px;
+    background:linear-gradient(90deg,#ede9fe,#cffafe);
+    color:#6d28d9;
+    font-size:.78rem;
+    font-weight:800;
+    letter-spacing:.4px;
+    margin-bottom:20px;
+}
+.hero h2{
+    font-family:"Space Grotesk";
+    font-size:clamp(2.3rem,6vw,4.7rem);
+    line-height:1.05;
+    max-width:900px;
+    margin:auto;
+    background:linear-gradient(90deg,#5b21b6,#db2777,#0891b2);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+.hero p{
+    max-width:760px;
+    margin:22px auto 0;
+    color:#687083;
+    font-size:1.03rem;
+}
+.hero-buttons{margin-top:28px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.btn{
+    border:0;
+    padding:12px 18px;
+    border-radius:11px;
+    cursor:pointer;
+    font-weight:700;
+    font-size:.9rem;
+    transition:.2s;
+}
+.btn-primary{color:white;background:linear-gradient(135deg,#7c3aed,#db2777);box-shadow:0 10px 25px #7c3aed35}
+.btn-primary:hover{transform:translateY(-2px)}
+.btn-light{background:white;border:1px solid #e3e5ed;color:#4b5563}
+.btn-light:hover{background:#f5f3ff;color:#6d28d9}
+
+/* STATS */
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-bottom:40px;
+}
+.stat{
+    padding:20px;
+    border-radius:15px;
+    background:#fff;
+    border:1px solid #e7e8f0;
+    text-align:center;
+    box-shadow:0 10px 30px #20243b08;
+}
+.stat strong{display:block;font-family:"Space Grotesk";font-size:1.7rem}
+.stat:nth-child(1) strong{color:#7c3aed}
+.stat:nth-child(2) strong{color:#db2777}
+.stat:nth-child(3) strong{color:#0891b2}
+.stat:nth-child(4) strong{color:#ea580c}
+.stat span{font-size:.75rem;color:#7b8192}
+
+/* QUESTION CARDS */
+.question-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+    margin-bottom:45px;
+}
+.qcard{
+    position:relative;
+    overflow:hidden;
+    padding:25px;
+    min-height:225px;
+    border-radius:20px;
+    color:white;
+    box-shadow:0 15px 35px #20243b18;
+}
+.qcard:after{
+    content:"";
+    position:absolute;
+    width:140px;height:140px;
+    border-radius:50%;
+    background:#ffffff20;
+    right:-45px;top:-45px;
+}
+.q1{background:linear-gradient(135deg,#6d28d9,#a855f7)}
+.q2{background:linear-gradient(135deg,#db2777,#f43f5e)}
+.q3{background:linear-gradient(135deg,#0891b2,#2563eb)}
+.q-number{font-size:.72rem;font-weight:800;letter-spacing:1px;opacity:.8}
+.qcard h3{font-family:"Space Grotesk";font-size:1.4rem;margin:8px 0}
+.qcard p{font-size:.86rem;opacity:.88;margin-bottom:20px}
+.qcard .btn{background:#ffffff;color:#222}
+
+/* SECTIONS */
+.section{
+    background:white;
+    border:1px solid #e7e8f0;
+    border-radius:22px;
+    margin-bottom:30px;
+    overflow:hidden;
+    box-shadow:0 15px 45px #20243b09;
+}
+.section-head{padding:30px 32px;color:white}
+.section-head h2{font-family:"Space Grotesk";font-size:1.7rem}
+.section-head p{opacity:.85;font-size:.88rem;margin-top:5px}
+.head1{background:linear-gradient(135deg,#5b21b6,#8b5cf6)}
+.head2{background:linear-gradient(135deg,#be185d,#f43f5e)}
+.head3{background:linear-gradient(135deg,#0e7490,#2563eb)}
+.section-body{padding:30px 32px}
+.answer{
+    padding:20px;
+    margin-bottom:15px;
+    border-radius:14px;
+    background:#fafbfe;
+    border:1px solid #e8eaf2;
+}
+.answer:last-child{margin-bottom:0}
+.answer h4{
+    font-family:"Space Grotesk";
+    margin-bottom:8px;
+    font-size:1rem;
+}
+.a1 h4{color:#6d28d9}.a2 h4{color:#be185d}.a3 h4{color:#0e7490}
+.answer ul,.answer ol{margin:8px 0 0 21px}
+.answer li{margin:4px 0}
+code{
+    background:#eeeaff;
+    color:#5b21b6;
+    border-radius:5px;
+    padding:2px 5px;
+}
+
+/* ARCHITECTURE */
+.flow{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:18px;
+}
+.flow-box{
+    padding:14px 17px;
+    border-radius:12px;
+    color:white;
+    font-weight:700;
+    font-size:.78rem;
+    text-align:center;
+    min-width:115px;
+}
+.flow-arrow{font-size:1.3rem;color:#9ca3af}
+.f-purple{background:#7c3aed}.f-pink{background:#db2777}.f-cyan{background:#0891b2}.f-orange{background:#ea580c}.f-blue{background:#2563eb}
+
+/* CODE */
+.code-title{
+    margin-top:15px;
+    font-size:.78rem;
+    font-weight:800;
+    color:#6b7280;
+}
+pre{
+    margin-top:8px;
+    padding:20px;
+    border-radius:13px;
+    background:#171525;
+    color:#e8e6f7;
+    overflow:auto;
+    font-size:.78rem;
+    line-height:1.55;
+    border:1px solid #2c2941;
+}
+
+/* COMPARISON */
+.table-wrap{overflow:auto}
+table{width:100%;border-collapse:collapse;margin-top:10px;min-width:620px}
+th,td{padding:12px;border:1px solid #e6e8ef;text-align:left;font-size:.84rem}
+th{background:#fce7f3;color:#9d174d}
+tr:nth-child(even) td{background:#fff9fb}
+
+/* DEMOS */
+.demo{
+    margin-top:20px;
+    border-radius:17px;
+    padding:25px;
+    background:linear-gradient(135deg,#faf5ff,#ecfeff);
+    border:1px solid #ddd6fe;
+}
+.demo h3{font-family:"Space Grotesk";margin-bottom:14px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-group{margin-bottom:13px}
+label{display:block;font-weight:700;font-size:.82rem;margin-bottom:5px}
+input{
+    width:100%;padding:11px 12px;
+    border:2px solid #dfe2eb;border-radius:9px;
+    background:white;font-size:.9rem;
+}
+input:focus{outline:none;border-color:#8b5cf6}
+.message{margin-top:12px;font-size:.85rem;font-weight:700}
+.success{color:#15803d}.error{color:#dc2626}
+.session-pages{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.page{padding:16px;background:white;border:1px solid #e5e7eb;border-radius:11px}
+.status{margin-top:13px;padding:11px;border-radius:9px;background:#ede9fe;color:#5b21b6;font-weight:600;font-size:.85rem}
+
+/* JDBC DATABASE */
+.db-table{margin-top:15px}
+.db-table table{min-width:0}
+.db-table th{background:#cffafe;color:#155e75}
+.product-flow .flow-box{min-width:135px}
+
+/* FOOTER */
+footer{
+    margin-top:50px;
+    padding:35px 0;
+    color:#fff;
+    background:linear-gradient(135deg,#171525,#312e81);
+    text-align:center;
+}
+footer strong{font-family:"Space Grotesk";font-size:1.1rem}
+footer p{opacity:.65;font-size:.8rem;margin-top:6px}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .question-grid{grid-template-columns:1fr}
+    .navbar{align-items:flex-start;padding:13px 0;flex-direction:column}
+}
+@media(max-width:600px){
+    .hero{padding:55px 0 45px}
+    .stats{grid-template-columns:1fr 1fr}
+    .section-head,.section-body{padding:22px}
+    .form-grid,.session-pages{grid-template-columns:1fr}
+    .flow{flex-direction:column}
+    .flow-arrow{transform:rotate(90deg)}
+    nav ul{width:100%;flex-direction:column}
+    nav a{display:block;background:#f7f7fb}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="container navbar">
+    <a class="brand" href="#">
+        <div class="logo">&lt;/&gt;</div>
+        <div>
+            <h1>Java Web Lab</h1>
+            <span>CO-3 Scenario Assessment</span>
+        </div>
+    </a>
+    <nav>
+        <ul>
+            <li><a href="#q1">Servlets</a></li>
+            <li><a href="#q2">Sessions</a></li>
+            <li><a href="#q3">JDBC</a></li>
+        </ul>
+    </nav>
+</div>
+</header>
+
+<main class="container">
+
+<section class="hero">
+    <span class="mini">CO-3 • L3 • WEIGHTAGE 40%</span>
+    <h2>Dynamic Web Applications with Java</h2>
+    <p>Servlet request processing, session management and JDBC database connectivity — explained and demonstrated through three scenario-based experiments.</p>
+    <div class="hero-buttons">
+        <a class="btn btn-primary" href="#q1">Explore Questions</a>
+        <a class="btn btn-light" href="#q3">View JDBC Flow</a>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="stat"><strong>03</strong><span>Scenario Questions</span></div>
+    <div class="stat"><strong>30</strong><span>Total Marks</span></div>
+    <div class="stat"><strong>40%</strong><span>Assessment Weightage</span></div>
+    <div class="stat"><strong>L3</strong><span>Learning Level</span></div>
+</section>
+
+<section class="question-grid">
+    <article class="qcard q1">
+        <span class="q-number">QUESTION 01</span>
+        <h3>Servlet Registration</h3>
+        <p>GET, POST, servlet architecture and the servlet life cycle.</p>
+        <a class="btn" href="#q1">Open Answer →</a>
+    </article>
+    <article class="qcard q2">
+        <span class="q-number">QUESTION 02</span>
+        <h3>Session Management</h3>
+        <p>HttpSession, cookies, login authentication and session tracking.</p>
+        <a class="btn" href="#q2">Open Answer →</a>
+    </article>
+    <article class="qcard q3">
+        <span class="q-number">QUESTION 03</span>
+        <h3>JDBC Products</h3>
+        <p>Database connection, SQL queries, insertion, retrieval and exceptions.</p>
+        <a class="btn" href="#q3">Open Answer →</a>
+    </article>
+</section>
+
+<!-- Q1 -->
+<section id="q1" class="section">
+<div class="section-head head1">
+    <h2>01 · Student Registration using Servlet</h2>
+    <p>Process student details through HTTP requests and Java Servlet response handling.</p>
+</div>
+<div class="section-body">
+
+<div class="answer a1">
+<h4>Architecture of a Servlet-Based Application</h4>
+<p>The browser sends an HTTP request to a web server. The servlet container such as Apache Tomcat maps that request to the appropriate servlet. The servlet reads request parameters, performs processing, optionally communicates with a database, and sends an HTTP response back to the browser.</p>
+<div class="flow">
+<div class="flow-box f-purple">Browser</div><div class="flow-arrow">→</div>
+<div class="flow-box f-pink">Web Server</div><div class="flow-arrow">→</div>
+<div class="flow-box f-cyan">Servlet Container</div><div class="flow-arrow">→</div>
+<div class="flow-box f-orange">Servlet</div><div class="flow-arrow">→</div>
+<div class="flow-box f-blue">Database</div>
+</div>
+</div>
+
+<div class="answer a1">
+<h4>GET and POST Servlet Implementation</h4>
+<p><strong>GET</strong> is generally used for retrieving data. Parameters are visible in the URL. <strong>POST</strong> sends the form data in the request body and is preferable for registration data.</p>
+<div class="code-title">StudentRegistrationServlet.java</div>
+<pre><code>import java.io.*;
+import jakarta.servlet.*;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.*;
+
+@WebServlet("/student")
+public class StudentRegistrationServlet extends HttpServlet {
+
+    protected void doGet(HttpServletRequest request,
+                          HttpServletResponse response)
+                          throws IOException {
+
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+
+        out.println("&lt;h2&gt;GET Registration&lt;/h2&gt;");
+        out.println("Name: " + name + "&lt;br&gt;");
+        out.println("Email: " + email);
+    }
+
+    protected void doPost(HttpServletRequest request,
+                           HttpServletResponse response)
+                           throws IOException {
+
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+
+        out.println("&lt;h2&gt;Registration Successful&lt;/h2&gt;");
+        out.println("Student: " + name + "&lt;br&gt;");
+        out.println("Email: " + email);
+    }
+}</code></pre>
+</div>
+
+<div class="answer a1">
+<h4>Servlet Life Cycle: init → service → destroy</h4>
+<ol>
+<li><strong>init():</strong> Executed once when the servlet is created. Initialization resources can be prepared here.</li>
+<li><strong>service():</strong> Executed for incoming requests. It dispatches the request to methods such as <code>doGet()</code> and <code>doPost()</code>.</li>
+<li><strong>destroy():</strong> Executed once before the servlet is removed, allowing resources to be released.</li>
+</ol>
+<div class="flow">
+<div class="flow-box f-purple">init()</div><div class="flow-arrow">→</div>
+<div class="flow-box f-pink">service()</div><div class="flow-arrow">→</div>
+<div class="flow-box f-cyan">doGet()/doPost()</div><div class="flow-arrow">→</div>
+<div class="flow-box f-orange">destroy()</div>
+</div>
+</div>
+
+<div class="answer a1">
+<h4>Why POST is more appropriate for sensitive data?</h4>
+<p>POST is preferable because form parameters are placed in the request body rather than directly in the URL. However, <strong>POST does not encrypt information</strong>. Sensitive information must use HTTPS/TLS, server-side validation and secure authentication. Passwords should never be stored as plain text.</p>
+</div>
+
+<div class="demo">
+<h3>Live Student Registration Demo</h3>
+<form onsubmit="studentDemo(event)">
+<div class="form-grid">
+<div class="form-group"><label>Student Name</label><input id="studentName" required placeholder="Enter name"></div>
+<div class="form-group"><label>Email</label><input id="studentEmail" type="email" required placeholder="student@email.com"></div>
+</div>
+<button class="btn btn-primary" type="submit">Submit via POST</button>
+<p id="studentMessage" class="message"></p>
+</form>
+</div>
+
+</div>
+</section>
+
+<!-- Q2 -->
+<section id="q2" class="section">
+<div class="section-head head2">
+    <h2>02 · Session Management</h2>
+    <p>Maintain authentication state across multiple pages using HttpSession and cookies.</p>
+</div>
+<div class="section-body">
+
+<div class="answer a2">
+<h4>How Session Tracking Works</h4>
+<p>After successful authentication, the server creates an <code>HttpSession</code>. The servlet container assigns a session identifier, commonly represented by the <code>JSESSIONID</code> cookie. The browser sends that identifier with later requests, allowing the server to find the correct session and its stored attributes.</p>
+<div class="flow">
+<div class="flow-box f-pink">Login</div><div class="flow-arrow">→</div>
+<div class="flow-box f-purple">HttpSession</div><div class="flow-arrow">→</div>
+<div class="flow-box f-cyan">JSESSIONID</div><div class="flow-arrow">→</div>
+<div class="flow-box f-blue">Next Page</div>
+</div>
+</div>
+
+<div class="answer a2">
+<h4>Login Servlet using HttpSession</h4>
+<pre><code>@WebServlet("/login")
+public class LoginServlet extends HttpServlet {
+
+    protected void doPost(HttpServletRequest request,
+                           HttpServletResponse response)
+                           throws IOException {
+
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        if ("student".equals(username)
+                && "1234".equals(password)) {
+
+            HttpSession session = request.getSession();
+            session.setAttribute("username", username);
+
+            response.sendRedirect("home");
+        } else {
+            response.sendRedirect("login.html");
+        }
+    }
+}</code></pre>
+</div>
+
+<div class="answer a2">
+<h4>Checking Session on Another Page</h4>
+<pre><code>HttpSession session = request.getSession(false);
+
+if (session != null &&
+    session.getAttribute("username") != null) {
+
+    String user =
+        (String) session.getAttribute("username");
+
+    response.getWriter()
+            .println("Welcome " + user);
+} else {
+    response.sendRedirect("login.html");
+}</code></pre>
+</div>
+
+<div class="answer a2">
+<h4>Session-Based Tracking vs Cookies</h4>
+<div class="table-wrap">
+<table>
+<tr><th>Feature</th><th>HttpSession</th><th>Cookies</th></tr>
+<tr><td>Storage</td><td>Application state is stored on the server.</td><td>Cookie data is stored in the browser.</td></tr>
+<tr><td>Typical use</td><td>Login state, cart, user information.</td><td>Preferences, identifiers and session IDs.</td></tr>
+<tr><td>Security</td><td>Useful for server-side session state.</td><td>Client can inspect cookie values.</td></tr>
+<tr><td>Size</td><td>Not limited like a cookie because state is server-side.</td><td>Small browser storage.</td></tr>
+<tr><td>Relationship</td><td>Can use a cookie to carry the session ID.</td><td>Can contain the JSESSIONID.</td></tr>
+</table>
+</div>
+</div>
+
+<div class="answer a2">
+<h4>Logout using Session Invalidation</h4>
+<pre><code>HttpSession session =
+    request.getSession(false);
+
+if (session != null) {
+    session.invalidate();
+}
+
+response.sendRedirect("login.html");</code></pre>
+</div>
+
+<div class="demo">
+<h3>Interactive Login & Session Demo</h3>
+<p>Enter <strong>student</strong> and <strong>1234</strong> to simulate a successful login.</p>
+<br>
+<form onsubmit="loginDemo(event)">
+<div class="form-grid">
+<div class="form-group"><label>Username</label><input id="loginUser" required placeholder="student"></div>
+<div class="form-group"><label>Password</label><input id="loginPass" type="password" required placeholder="1234"></div>
+</div>
+<button class="btn btn-primary" type="submit">Login</button>
+<button class="btn btn-light" type="button" onclick="logoutDemo()">Logout</button>
+</form>
+<p id="sessionStatus" class="status">No active session.</p>
+<div class="session-pages">
+<div class="page"><strong>🏠 Home</strong><p id="homePage">Login required.</p></div>
+<div class="page"><strong>👤 Profile</strong><p id="profilePage">Login required.</p></div>
+<div class="page"><strong>📊 Dashboard</strong><p id="dashboardPage">Login required.</p></div>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- Q3 -->
+<section id="q3" class="section">
+<div class="section-head head3">
+    <h2>03 · JDBC Product Management</h2>
+    <p>Connect a Java web application to a database, insert products and retrieve records.</p>
+</div>
+<div class="section-body">
+
+<div class="answer a3">
+<h4>JDBC Architecture</h4>
+<p>JDBC (Java Database Connectivity) is a Java API that provides a standard way to connect Java programs to relational databases and execute SQL statements.</p>
+<div class="flow product-flow">
+<div class="flow-box f-blue">Java Web App</div><div class="flow-arrow">→</div>
+<div class="flow-box f-cyan">JDBC API</div><div class="flow-arrow">→</div>
+<div class="flow-box f-purple">JDBC Driver</div><div class="flow-arrow">→</div>
+<div class="flow-box f-orange">MySQL</div>
+</div>
+</div>
+
+<div class="answer a3">
+<h4>Steps in Database Connectivity</h4>
+<ol>
+<li>Import JDBC classes.</li>
+<li>Load/register the database driver when required.</li>
+<li>Establish a connection using <code>DriverManager</code>.</li>
+<li>Create a <code>PreparedStatement</code>.</li>
+<li>Execute INSERT, UPDATE, DELETE or SELECT.</li>
+<li>Process the <code>ResultSet</code> for SELECT operations.</li>
+<li>Close resources with try-with-resources.</li>
+<li>Handle <code>SQLException</code>.</li>
+</ol>
+</div>
+
+<div class="answer a3">
+<h4>Database Table</h4>
+<pre><code>CREATE DATABASE ecommerce;
+
+USE ecommerce;
+
+CREATE TABLE products (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    quantity INT NOT NULL
+);</code></pre>
+</div>
+
+<div class="answer a3">
+<h4>Insert Product using PreparedStatement</h4>
+<pre><code>public void insertProduct(String name,
+                           double price,
+                           int quantity) {
+
+    String sql =
+        "INSERT INTO products(name, price, quantity) " +
+        "VALUES (?, ?, ?)";
+
+    try (Connection con =
+            DriverManager.getConnection(
+                URL, USER, PASSWORD);
+         PreparedStatement ps =
+            con.prepareStatement(sql)) {
+
+        ps.setString(1, name);
+        ps.setDouble(2, price);
+        ps.setInt(3, quantity);
+
+        ps.executeUpdate();
+
+    } catch (SQLException e) {
+        System.err.println(
+            "Database error: " + e.getMessage());
+    }
+}</code></pre>
+</div>
+
+<div class="answer a3">
+<h4>Retrieve Products</h4>
+<pre><code>String sql =
+    "SELECT id, name, price, quantity FROM products";
+
+try (Connection con =
+        DriverManager.getConnection(URL, USER, PASSWORD);
+     PreparedStatement ps =
+        con.prepareStatement(sql);
+     ResultSet rs = ps.executeQuery()) {
+
+    while (rs.next()) {
+        System.out.println(
+            rs.getInt("id") + " " +
+            rs.getString("name") + " " +
+            rs.getDouble("price") + " " +
+            rs.getInt("quantity")
+        );
+    }
+
+} catch (SQLException e) {
+    System.err.println(
+        "Unable to retrieve products: " +
+        e.getMessage());
+}</code></pre>
+</div>
+
+<div class="answer a3">
+<h4>Servlet → JDBC → Database Request Flow</h4>
+<div class="flow">
+<div class="flow-box f-blue">Browser</div><div class="flow-arrow">→</div>
+<div class="flow-box f-purple">ProductServlet</div><div class="flow-arrow">→</div>
+<div class="flow-box f-pink">ProductDAO</div><div class="flow-arrow">→</div>
+<div class="flow-box f-cyan">JDBC Driver</div><div class="flow-arrow">→</div>
+<div class="flow-box f-orange">MySQL</div>
+</div>
+<p style="text-align:center;margin-top:15px;color:#6b7280;font-size:.84rem">SQL request travels to the database → database returns the result → servlet generates the HTTP response.</p>
+</div>
+
+<div class="answer a3">
+<h4>Exception Handling & Security</h4>
+<ul>
+<li>Use <code>try-with-resources</code> to close connections, statements and result sets.</li>
+<li>Handle <code>SQLException</code> instead of exposing database errors to users.</li>
+<li>Use <code>PreparedStatement</code> to reduce SQL injection risk.</li>
+<li>Validate product name, price and quantity before database insertion.</li>
+<li>Keep database credentials outside source code in production.</li>
+<li>Use connection pooling for high-traffic applications.</li>
+</ul>
+</div>
+
+<div class="demo">
+<h3>Interactive Product INSERT Demo</h3>
+<p>This visual demo represents the client side of a JDBC operation. Actual JDBC execution happens in the Java server.</p>
+<br>
+<div class="form-grid">
+<div class="form-group"><label>Product Name</label><input id="productName" placeholder="Laptop"></div>
+<div class="form-group"><label>Price</label><input id="productPrice" type="number" placeholder="54999"></div>
+<div class="form-group"><label>Quantity</label><input id="productQty" type="number" placeholder="5"></div>
+</div>
+<button class="btn btn-primary" onclick="insertProduct()">Simulate JDBC INSERT</button>
+<p id="productMessage" class="message"></p>
+<div id="productTable" class="db-table"></div>
+</div>
+
+</div>
+</section>
+
+</main>
+
+<footer>
+<div class="container">
+<strong>CO-3 · Dynamic Web Applications</strong>
+<p>Java Servlets • HttpSession • Cookies • JDBC • Scenario-Based Assessment</p>
+</div>
+</footer>
+
+<script>
+function studentDemo(e){
+    e.preventDefault();
+    const name=document.getElementById("studentName").value.trim();
+    const email=document.getElementById("studentEmail").value.trim();
+    const m=document.getElementById("studentMessage");
+    if(name && email){
+        m.className="message success";
+        m.textContent="✓ Registration data validated. In the actual application this form would be processed by StudentRegistrationServlet using POST.";
+    }
+}
+
+function loginDemo(e){
+    e.preventDefault();
+    const user=document.getElementById("loginUser").value.trim();
+    const pass=document.getElementById("loginPass").value;
+    const s=document.getElementById("sessionStatus");
+    if(user==="student" && pass==="1234"){
+        sessionStorage.setItem("co3User",user);
+        s.textContent="✓ Active session: "+user+" • simulated JSESSIONID/HttpSession state";
+        s.className="status success";
+        ["homePage","profilePage","dashboardPage"].forEach(id=>{
+            document.getElementById(id).textContent="Authenticated as "+user;
+        });
+    }else{
+        s.textContent="✕ Invalid credentials. Try student / 1234.";
+        s.className="status error";
+    }
+}
+
+function logoutDemo(){
+    sessionStorage.removeItem("co3User");
+    document.getElementById("sessionStatus").textContent="Session invalidated. User logged out.";
+    document.getElementById("sessionStatus").className="status";
+    ["homePage","profilePage","dashboardPage"].forEach(id=>{
+        document.getElementById(id).textContent="Login required.";
+    });
+}
+
+function restoreSession(){
+    const user=sessionStorage.getItem("co3User");
+    if(user){
+        document.getElementById("sessionStatus").textContent="✓ Session restored for "+user;
+        document.getElementById("sessionStatus").className="status success";
+        ["homePage","profilePage","dashboardPage"].forEach(id=>{
+            document.getElementById(id).textContent="Authenticated as "+user;
+        });
+    }
+}
+
+const products=[];
+
+function insertProduct(){
+    const name=document.getElementById("productName").value.trim();
+    const price=document.getElementById("productPrice").value;
+    const qty=document.getElementById("productQty").value;
+    const m=document.getElementById("productMessage");
+
+    if(!name || price==="" || qty===""){
+        m.className="message error";
+        m.textContent="✕ Enter all product details.";
+        return;
+    }
+
+    products.push({
+        id:products.length+1,
+        name:name,
+        price:Number(price).toFixed(2),
+        qty:qty
+    });
+
+    m.className="message success";
+    m.textContent="✓ Simulated JDBC INSERT successful.";
+    renderProducts();
+}
+
+function renderProducts(){
+    let t="<div class='table-wrap'><table><tr><th>ID</th><th>Product</th><th>Price</th><th>Quantity</th></tr>";
+    products.forEach(p=>{
+        t+=`<tr><td>${p.id}</td><td>${p.name}</td><td>₹${p.price}</td><td>${p.qty}</td></tr>`;
+    });
+    t+="</table></div>";
+    document.getElementById("productTable").innerHTML=t;
+}
+restoreSession();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1696 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- ==============================
+         BASIC HTML SETTINGS
+    =============================== -->
+
+    <meta charset="UTF-8">
+
+    <!-- Makes the website responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>E-Commerce Web Design Assessment</title>
+
+
+    <!-- ==============================
+         CSS
+    =============================== -->
+
+    <style>
+
+        /* =================================
+           GENERAL SETTINGS
+        ================================= */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f7fa;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+
+        /* =================================
+           HEADER / NAVIGATION
+        ================================= */
+
+        header {
+            background-color: #111827;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 15px 20px;
+        }
+
+        /* Website Logo */
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #38bdf8;
+        }
+
+
+        /* Navigation Links */
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #38bdf8;
+        }
+
+
+        /* Shopping Cart */
+
+        .cart {
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+
+        /* Hamburger Button */
+
+        .menu-button {
+            display: none;
+
+            background: none;
+            border: none;
+
+            color: white;
+            font-size: 26px;
+
+            cursor: pointer;
+        }
+
+
+        /* =================================
+           HERO SECTION
+        ================================= */
+
+        .hero {
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #7c3aed
+            );
+
+            color: white;
+
+            text-align: center;
+
+            padding: 70px 20px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 18px;
+        }
+
+
+        /* =================================
+           MAIN CONTAINER
+        ================================= */
+
+        .container {
+            width: 92%;
+            max-width: 1200px;
+
+            margin: 40px auto;
+        }
+
+
+        /* =================================
+           ASSESSMENT SECTIONS
+        ================================= */
+
+        .assessment {
+            background-color: white;
+
+            margin-bottom: 35px;
+            padding: 30px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .assessment h2 {
+            color: #1e3a8a;
+
+            margin-bottom: 20px;
+
+            border-bottom: 2px solid #e5e7eb;
+
+            padding-bottom: 10px;
+        }
+
+        .assessment h3 {
+            margin-top: 25px;
+            margin-bottom: 10px;
+            color: #374151;
+        }
+
+        .assessment p {
+            margin-bottom: 12px;
+        }
+
+        .assessment ul {
+            margin-left: 25px;
+        }
+
+        .assessment li {
+            margin-bottom: 7px;
+        }
+
+
+        /* =================================
+           QUESTION 1
+           RESPONSIVE NAVIGATION DEMO
+        ================================= */
+
+        .demo-navbar {
+            margin-top: 20px;
+
+            background-color: #111827;
+
+            color: white;
+
+            padding: 15px 20px;
+
+            border-radius: 8px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+        .demo-logo {
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .demo-links {
+            display: flex;
+            gap: 20px;
+
+            list-style: none;
+        }
+
+        .demo-links a {
+            color: white;
+        }
+
+
+        /* =================================
+           QUESTION 2
+           PRODUCT CARDS
+        ================================= */
+
+        .product-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
+
+            margin-top: 20px;
+        }
+
+        .product-card {
+
+            background-color: white;
+
+            border-radius: 12px;
+
+            overflow: hidden;
+
+            border: 1px solid #e5e7eb;
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        /* Hover Effect */
+
+        .product-card:hover {
+
+            transform:
+                translateY(-10px);
+
+            box-shadow:
+                0 12px 25px
+                rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+
+            height: 180px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background-color: #e0f2fe;
+
+            font-size: 70px;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            margin-bottom: 8px;
+        }
+
+        .price {
+            color: #2563eb;
+
+            font-size: 20px;
+
+            font-weight: bold;
+        }
+
+        .buy-button {
+
+            margin-top: 15px;
+
+            padding: 10px 18px;
+
+            border: none;
+
+            border-radius: 6px;
+
+            background-color: #2563eb;
+
+            color: white;
+
+            cursor: pointer;
+
+            transition:
+                background-color 0.3s;
+        }
+
+        .buy-button:hover {
+            background-color: #1d4ed8;
+        }
+
+
+        /* =================================
+           QUESTION 3
+           DASHBOARD GRID
+        ================================= */
+
+        .dashboard {
+
+            display: grid;
+
+            grid-template-columns:
+                220px 1fr;
+
+            grid-template-rows:
+                auto 1fr;
+
+            gap: 15px;
+
+            margin-top: 20px;
+
+            min-height: 500px;
+        }
+
+        .dashboard-sidebar {
+
+            grid-row:
+                1 / 3;
+
+            background-color: #1e293b;
+
+            color: white;
+
+            padding: 25px;
+
+            border-radius: 10px;
+        }
+
+        .dashboard-sidebar h3 {
+            margin-bottom: 20px;
+        }
+
+        .dashboard-sidebar li {
+
+            list-style: none;
+
+            padding: 10px;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+        }
+
+        .dashboard-sidebar li:hover {
+            background-color: #334155;
+        }
+
+        .dashboard-header {
+
+            background-color: #dbeafe;
+
+            padding: 25px;
+
+            border-radius: 10px;
+        }
+
+        .dashboard-content {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 15px;
+        }
+
+        .stat-card {
+
+            background-color: white;
+
+            border: 1px solid #ddd;
+
+            border-radius: 10px;
+
+            padding: 25px;
+
+            text-align: center;
+
+            transition:
+                transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+
+            font-size: 30px;
+
+            font-weight: bold;
+
+            color: #2563eb;
+        }
+
+
+        /* =================================
+           QUESTION 4
+           MOBILE-FIRST BLOG
+        ================================= */
+
+        .blog {
+
+            margin-top: 20px;
+
+            display: grid;
+
+            grid-template-columns: 1fr;
+
+            gap: 20px;
+        }
+
+        .blog-post {
+
+            background-color: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 10px;
+
+            padding: 20px;
+        }
+
+        .blog-post h3 {
+            color: #1e3a8a;
+
+            margin-bottom: 10px;
+        }
+
+        .blog-date {
+            font-size: 13px;
+
+            color: #6b7280;
+
+            margin-bottom: 10px;
+        }
+
+        .read-more {
+
+            display: inline-block;
+
+            margin-top: 10px;
+
+            color: #2563eb;
+
+            font-weight: bold;
+        }
+
+
+        /* =================================
+           QUESTION 5
+           DYNAMIC MENU
+        ================================= */
+
+        .dynamic-menu {
+
+            background-color: #111827;
+
+            padding: 20px;
+
+            border-radius: 10px;
+
+            margin-top: 20px;
+        }
+
+        .dynamic-menu button {
+
+            background-color: #2563eb;
+
+            color: white;
+
+            border: none;
+
+            padding: 10px 18px;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+        }
+
+        .dynamic-menu-list {
+
+            display: none;
+
+            list-style: none;
+
+            margin-top: 15px;
+        }
+
+        .dynamic-menu-list.active {
+            display: block;
+        }
+
+        .dynamic-menu-list li {
+
+            padding: 12px;
+
+            color: white;
+
+            border-bottom:
+                1px solid #374151;
+        }
+
+        .dynamic-menu-list li:hover {
+            background-color: #374151;
+        }
+
+
+        /* =================================
+           FOOTER
+        ================================= */
+
+        footer {
+
+            background-color: #111827;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 25px;
+
+            margin-top: 50px;
+        }
+
+
+        /* =================================
+           TABLET
+        ================================= */
+
+        @media (max-width: 900px) {
+
+            .product-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .dashboard {
+
+                grid-template-columns:
+                    180px 1fr;
+            }
+
+            .dashboard-content {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+        }
+
+
+        /* =================================
+           MOBILE
+        ================================= */
+
+        @media (max-width: 700px) {
+
+            /* Navigation */
+
+            .menu-button {
+                display: block;
+            }
+
+            .nav-links {
+
+                display: none;
+
+                position: absolute;
+
+                top: 65px;
+
+                left: 0;
+
+                width: 100%;
+
+                background-color: #111827;
+
+                flex-direction: column;
+
+                padding: 20px;
+
+                gap: 15px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .cart {
+                display: none;
+            }
+
+
+            /* Hero */
+
+            .hero h1 {
+                font-size: 30px;
+            }
+
+
+            /* Product */
+
+            .product-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            /* Dashboard */
+
+            .dashboard {
+
+                grid-template-columns:
+                    1fr;
+
+                grid-template-rows:
+                    auto;
+            }
+
+            .dashboard-sidebar {
+
+                grid-row:
+                    auto;
+            }
+
+            .dashboard-content {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            /* Blog */
+
+            .blog {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            /* Assessment */
+
+            .assessment {
+                padding: 20px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         QUESTION 1
+         RESPONSIVE NAVIGATION
+    =================================================== -->
+
+    <header>
+
+        <nav class="navbar">
+
+            <div class="logo">
+                Shop<span>Easy</span>
+            </div>
+
+
+            <!-- Hamburger Button -->
+
+            <button
+                class="menu-button"
+                id="menuButton"
+                aria-label="Open navigation menu"
+                aria-expanded="false">
+
+                ☰
+
+            </button>
+
+
+            <!-- Navigation Links -->
+
+            <ul class="nav-links" id="navLinks">
+
+                <li>
+                    <a href="#products">
+                        Products
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#dashboard">
+                        Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#blog">
+                        Blog
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#contact">
+                        Contact
+                    </a>
+                </li>
+
+            </ul>
+
+
+            <div class="cart">
+                🛒
+            </div>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ==================================================
+         HERO
+    =================================================== -->
+
+    <section class="hero">
+
+        <h1>
+            E-Commerce Web Design
+        </h1>
+
+        <p>
+            CO-2 Design Task – CSS Layout, Styling and JavaScript
+        </p>
+
+    </section>
+
+
+    <main class="container">
+
+
+        <!-- ==================================================
+             QUESTION 1
+        =================================================== -->
+
+        <section class="assessment">
+
+            <h2>
+                Question 1: Responsive Navigation Bar Design – 4 Marks
+            </h2>
+
+
+            <h3>
+                (a) Key Components Required
+            </h3>
+
+            <p>
+                An e-commerce navigation bar should contain the website logo,
+                product/category links, search functionality, shopping cart,
+                user account/login option and a mobile menu button.
+            </p>
+
+            <ul>
+
+                <li>Website logo</li>
+
+                <li>Home and product links</li>
+
+                <li>Search bar</li>
+
+                <li>Shopping cart</li>
+
+                <li>User account</li>
+
+                <li>Hamburger menu for mobile devices</li>
+
+            </ul>
+
+
+            <h3>
+                (b) Responsive Navigation Design
+            </h3>
+
+            <p>
+                CSS Flexbox is used to align the logo, navigation links and
+                shopping cart horizontally. Media queries change the layout
+                for smaller screens.
+            </p>
+
+
+            <h3>
+                (c) Mobile Hamburger Menu
+            </h3>
+
+            <p>
+                On smaller screens, the normal navigation links are hidden and
+                a hamburger button is displayed. JavaScript opens and closes
+                the menu when the user clicks the button.
+            </p>
+
+
+            <h3>
+                Live Navigation Example
+            </h3>
+
+            <div class="demo-navbar">
+
+                <div class="demo-logo">
+                    ShopEasy
+                </div>
+
+                <button
+                    class="menu-button"
+                    onclick="toggleDemoMenu()">
+
+                    ☰
+
+                </button>
+
+                <ul
+                    class="demo-links"
+                    id="demoLinks">
+
+                    <li>
+                        <a href="#">
+                            Home
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Products
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Offers
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Contact
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <h3>
+                (d) Usability and Improvements
+            </h3>
+
+            <p>
+                The navigation is simple and easy to understand. Improvements
+                can include a search bar, category dropdowns, keyboard
+                accessibility, larger touch targets and clear active states.
+            </p>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             QUESTION 2
+        =================================================== -->
+
+        <section
+            class="assessment"
+            id="products">
+
+            <h2>
+                Question 2: Product Hover Effect – 4 Marks
+            </h2>
+
+
+            <h3>
+                (a) Suitable CSS Properties
+            </h3>
+
+            <p>
+                Suitable properties include transform, transition,
+                box-shadow, opacity, background-color and border-color.
+            </p>
+
+
+            <h3>
+                (b) Animation and Transition
+            </h3>
+
+            <p>
+                A smooth transition can be created using the CSS
+                <b>transition</b> property. The product card can move upward
+                slightly using <b>transform: translateY()</b> and receive
+                a shadow when the user moves the mouse over it.
+            </p>
+
+
+            <h3>
+                (c) Product Card Hover Effect
+            </h3>
+
+            <div class="product-grid">
+
+
+                <div class="product-card">
+
+                    <div class="product-image">
+                        👟
+                    </div>
+
+                    <div class="product-info">
+
+                        <h3>
+                            Running Shoes
+                        </h3>
+
+                        <p>
+                            Comfortable sports shoes.
+                        </p>
+
+                        <p class="price">
+                            ₹2,499
+                        </p>
+
+                        <button class="buy-button">
+                            Buy Now
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="product-card">
+
+                    <div class="product-image">
+                        🎧
+                    </div>
+
+                    <div class="product-info">
+
+                        <h3>
+                            Wireless Headphones
+                        </h3>
+
+                        <p>
+                            High-quality wireless audio.
+                        </p>
+
+                        <p class="price">
+                            ₹1,999
+                        </p>
+
+                        <button class="buy-button">
+                            Buy Now
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="product-card">
+
+                    <div class="product-image">
+                        ⌚
+                    </div>
+
+                    <div class="product-info">
+
+                        <h3>
+                            Smart Watch
+                        </h3>
+
+                        <p>
+                            Smart fitness and notification features.
+                        </p>
+
+                        <p class="price">
+                            ₹3,499
+                        </p>
+
+                        <button class="buy-button">
+                            Buy Now
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <h3>
+                (d) Performance and UX Considerations
+            </h3>
+
+            <p>
+                Hover effects should be subtle and fast. CSS transitions are
+                preferred because they are efficient. Excessive animations
+                should be avoided because they can distract users. The design
+                should also work for touch-screen devices where hover may not
+                exist.
+            </p>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             QUESTION 3
+        =================================================== -->
+
+        <section
+            class="assessment"
+            id="dashboard">
+
+            <h2>
+                Question 3: Layout Selection – Flexbox vs Grid – 4 Marks
+            </h2>
+
+
+            <h3>
+                (a) Dashboard Layout Requirements
+            </h3>
+
+            <p>
+                A dashboard generally requires rows and columns for a sidebar,
+                header, statistics cards, charts and other content. Elements
+                must be aligned properly and the layout should adapt to
+                different screen sizes.
+            </p>
+
+
+            <h3>
+                (b) Flexbox vs Grid
+            </h3>
+
+            <ul>
+
+                <li>
+                    <b>Flexbox:</b>
+                    Best for one-dimensional layouts such as a row or column.
+                </li>
+
+                <li>
+                    <b>Grid:</b>
+                    Best for two-dimensional layouts containing both rows
+                    and columns.
+                </li>
+
+            </ul>
+
+
+            <h3>
+                (c) Selected Layout: CSS Grid
+            </h3>
+
+            <p>
+                CSS Grid is the most suitable choice for this dashboard
+                because the layout contains both rows and columns. Grid
+                provides precise control over the sidebar, header and
+                dashboard content.
+            </p>
+
+
+            <h3>
+                Live Dashboard Example
+            </h3>
+
+
+            <div class="dashboard">
+
+
+                <aside class="dashboard-sidebar">
+
+                    <h3>
+                        Dashboard
+                    </h3>
+
+                    <ul>
+
+                        <li>
+                            Home
+                        </li>
+
+                        <li>
+                            Orders
+                        </li>
+
+                        <li>
+                            Products
+                        </li>
+
+                        <li>
+                            Customers
+                        </li>
+
+                        <li>
+                            Settings
+                        </li>
+
+                    </ul>
+
+                </aside>
+
+
+                <div class="dashboard-header">
+
+                    <h2>
+                        Welcome Back!
+                    </h2>
+
+                    <p>
+                        Here is your store overview.
+                    </p>
+
+                </div>
+
+
+                <div class="dashboard-content">
+
+
+                    <div class="stat-card">
+
+                        <p>
+                            Sales
+                        </p>
+
+                        <div class="stat-number">
+                            ₹45K
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <p>
+                            Orders
+                        </p>
+
+                        <div class="stat-number">
+                            128
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <p>
+                            Customers
+                        </p>
+
+                        <div class="stat-number">
+                            540
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <h3>
+                (d) Scalability and Responsiveness
+            </h3>
+
+            <p>
+                CSS Grid is highly scalable because new rows and columns can
+                be added easily. Media queries allow the sidebar and cards
+                to become single-column layouts on mobile devices.
+            </p>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             QUESTION 4
+        =================================================== -->
+
+        <section
+            class="assessment"
+            id="blog">
+
+            <h2>
+                Question 4: Mobile-First Blog Layout – 4 Marks
+            </h2>
+
+
+            <h3>
+                (a) Key Blog Sections
+            </h3>
+
+            <ul>
+
+                <li>Header</li>
+
+                <li>Navigation</li>
+
+                <li>Main article</li>
+
+                <li>Blog posts</li>
+
+                <li>Sidebar</li>
+
+                <li>Categories</li>
+
+                <li>Footer</li>
+
+            </ul>
+
+
+            <h3>
+                (b) Mobile-First Design
+            </h3>
+
+            <p>
+                A mobile-first design starts by creating the layout for small
+                screens. A single-column layout is used initially because
+                mobile devices have limited screen space.
+            </p>
+
+
+            <h3>
+                (c) Scaling to Larger Screens
+            </h3>
+
+            <p>
+                Media queries are then used to introduce additional columns
+                and larger layouts when the screen becomes wider.
+            </p>
+
+
+            <h3>
+                Live Mobile-First Blog Example
+            </h3>
+
+
+            <div class="blog">
+
+
+                <article class="blog-post">
+
+                    <h3>
+                        How to Build a Responsive Website
+                    </h3>
+
+                    <p class="blog-date">
+                        August 5, 2026
+                    </p>
+
+                    <p>
+                        Responsive web design allows websites to adapt to
+                        mobile phones, tablets and desktop computers.
+                    </p>
+
+                    <a
+                        href="#"
+                        class="read-more">
+
+                        Read More →
+
+                    </a>
+
+                </article>
+
+
+                <article class="blog-post">
+
+                    <h3>
+                        CSS Grid vs Flexbox
+                    </h3>
+
+                    <p class="blog-date">
+                        August 4, 2026
+                    </p>
+
+                    <p>
+                        Flexbox and Grid are powerful CSS layout systems.
+                        Understanding their differences helps developers
+                        create better layouts.
+                    </p>
+
+                    <a
+                        href="#"
+                        class="read-more">
+
+                        Read More →
+
+                    </a>
+
+                </article>
+
+
+                <article class="blog-post">
+
+                    <h3>
+                        JavaScript for Beginners
+                    </h3>
+
+                    <p class="blog-date">
+                        August 3, 2026
+                    </p>
+
+                    <p>
+                        JavaScript adds interaction and dynamic behavior
+                        to websites.
+                    </p>
+
+                    <a
+                        href="#"
+                        class="read-more">
+
+                        Read More →
+
+                    </a>
+
+                </article>
+
+
+            </div>
+
+
+            <h3>
+                (d) Accessibility and Readability
+            </h3>
+
+            <p>
+                The blog should use readable fonts, sufficient color contrast,
+                proper heading structure, meaningful links, alternative text
+                for images and keyboard-friendly controls. Paragraphs should
+                have enough spacing to make reading comfortable.
+            </p>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             QUESTION 5
+        =================================================== -->
+
+        <section
+            class="assessment"
+            id="contact">
+
+            <h2>
+                Question 5: JavaScript Event Handling for Dynamic Menu – 4 Marks
+            </h2>
+
+
+            <h3>
+                (a) Appropriate JavaScript Events
+            </h3>
+
+            <p>
+                Common events for menus include <b>click</b>,
+                <b>mouseover</b>, <b>mouseout</b>, <b>keydown</b> and
+                <b>focus</b>.
+            </p>
+
+
+            <h3>
+                (b) Menu Toggle Logic
+            </h3>
+
+            <p>
+                When the user clicks the menu button, JavaScript adds or
+                removes an "active" CSS class. The CSS class controls whether
+                the menu is visible.
+            </p>
+
+
+            <h3>
+                (c) Dynamic Menu Example
+            </h3>
+
+
+            <div class="dynamic-menu">
+
+                <button
+                    id="dynamicMenuButton"
+                    aria-expanded="false">
+
+                    ☰ Open Menu
+
+                </button>
+
+
+                <ul
+                    class="dynamic-menu-list"
+                    id="dynamicMenuList">
+
+                    <li>
+                        Home
+                    </li>
+
+                    <li>
+                        Products
+                    </li>
+
+                    <li>
+                        Offers
+                    </li>
+
+                    <li>
+                        My Account
+                    </li>
+
+                    <li>
+                        Contact Us
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <h3>
+                (d) Performance and Improvements
+            </h3>
+
+            <p>
+                Event listeners should be attached efficiently and unnecessary
+                DOM operations should be avoided. Accessibility can be improved
+                by using ARIA attributes, keyboard support and clear focus
+                indicators. The menu should also close when the user selects
+                a navigation item.
+            </p>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ==================================================
+         FOOTER
+    =================================================== -->
+
+    <footer>
+
+        <p>
+            CO-2 Design Task | HTML + CSS + JavaScript
+        </p>
+
+        <p>
+            Responsive Web Design • CSS Layout • JavaScript Interaction
+        </p>
+
+    </footer>
+
+
+
+    <!-- ==================================================
+         JAVASCRIPT
+    =================================================== -->
+
+    <script>
+
+
+        /* ==========================================
+           MAIN RESPONSIVE NAVIGATION
+        ========================================== */
+
+        const menuButton =
+            document.getElementById("menuButton");
+
+        const navLinks =
+            document.getElementById("navLinks");
+
+
+        menuButton.addEventListener(
+            "click",
+            function () {
+
+                navLinks.classList.toggle("active");
+
+
+                /*
+                    Update accessibility attribute
+                */
+
+                const isOpen =
+                    navLinks.classList.contains("active");
+
+                menuButton.setAttribute(
+                    "aria-expanded",
+                    isOpen
+                );
+
+            }
+        );
+
+
+        /* ==========================================
+           CLOSE MENU AFTER CLICKING A LINK
+        ========================================== */
+
+        const links =
+            document.querySelectorAll(
+                "#navLinks a"
+            );
+
+
+        links.forEach(function(link) {
+
+            link.addEventListener(
+                "click",
+                function() {
+
+                    navLinks.classList.remove("active");
+
+                    menuButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                }
+            );
+
+        });
+
+
+
+        /* ==========================================
+           DEMO NAVIGATION MENU
+        ========================================== */
+
+        function toggleDemoMenu() {
+
+            const demoLinks =
+                document.getElementById("demoLinks");
+
+            demoLinks.classList.toggle("active");
+
+        }
+
+
+
+        /* ==========================================
+           QUESTION 5
+           DYNAMIC MENU
+        ========================================== */
+
+        const dynamicMenuButton =
+            document.getElementById(
+                "dynamicMenuButton"
+            );
+
+        const dynamicMenuList =
+            document.getElementById(
+                "dynamicMenuList"
+            );
+
+
+        dynamicMenuButton.addEventListener(
+            "click",
+            function() {
+
+
+                /*
+                    Toggle menu visibility
+                */
+
+                dynamicMenuList.classList.toggle(
+                    "active"
+                );
+
+
+                /*
+                    Check whether menu is open
+                */
+
+                const isOpen =
+                    dynamicMenuList.classList.contains(
+                        "active"
+                    );
+
+
+                /*
+                    Change button text
+                */
+
+                if (isOpen) {
+
+                    dynamicMenuButton.textContent =
+                        "✕ Close Menu";
+
+                } else {
+
+                    dynamicMenuButton.textContent =
+                        "☰ Open Menu";
+
+                }
+
+
+                /*
+                    Update ARIA attribute
+                */
+
+                dynamicMenuButton.setAttribute(
+                    "aria-expanded",
+                    isOpen
+                );
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>
+```

@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CO-2 Web Development Experiments</title>
+
+    <style>
+        /* =========================
+           GLOBAL STYLES
+        ========================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: min(1100px, 92%);
+            margin: auto;
+        }
+
+        /* =========================
+           HEADER + NAVIGATION
+        ========================== */
+        header {
+            background: linear-gradient(135deg, #172554, #2563eb);
+            color: white;
+            padding: 28px 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo h1 {
+            font-size: 1.7rem;
+        }
+
+        .logo p {
+            opacity: 0.85;
+            font-size: 0.9rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        nav a {
+            display: block;
+            padding: 9px 13px;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        /* =========================
+           HERO
+        ========================== */
+        .hero {
+            padding: 45px 0;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            color: #172554;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            max-width: 760px;
+            margin: auto;
+            color: #64748b;
+        }
+
+        .badge {
+            display: inline-block;
+            margin-top: 18px;
+            padding: 7px 13px;
+            background: #dbeafe;
+            color: #1d4ed8;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        /* =========================
+           EXPERIMENT CARDS
+        ========================== */
+        .experiments {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            margin-bottom: 40px;
+        }
+
+        .experiment-card {
+            background: white;
+            border-radius: 14px;
+            padding: 24px;
+            box-shadow: 0 5px 20px rgba(15, 23, 42, 0.08);
+            border: 1px solid #e5e7eb;
+        }
+
+        .experiment-card h3 {
+            color: #1d4ed8;
+            margin-bottom: 10px;
+        }
+
+        .experiment-card p {
+            color: #64748b;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 9px 14px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* =========================
+           EXPERIMENT SECTIONS
+        ========================== */
+        .section {
+            background: white;
+            margin-bottom: 30px;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 5px 20px rgba(15, 23, 42, 0.07);
+        }
+
+        .section-title {
+            color: #172554;
+            margin-bottom: 20px;
+            border-left: 5px solid #2563eb;
+            padding-left: 12px;
+        }
+
+        .answer {
+            margin: 20px 0;
+            padding: 18px;
+            background: #f8fafc;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .answer h4 {
+            color: #1e40af;
+            margin-bottom: 8px;
+        }
+
+        .answer ul {
+            margin-left: 20px;
+        }
+
+        /* =========================
+           EXPERIMENT 1 DEMO
+        ========================== */
+        .retail-demo {
+            border: 2px dashed #93c5fd;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .retail-header {
+            background: #0f172a;
+            color: white;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .retail-nav {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .retail-nav span {
+            background: #1e293b;
+            padding: 5px 9px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            padding: 18px;
+        }
+
+        .product {
+            padding: 20px;
+            text-align: center;
+            background: #eff6ff;
+            border-radius: 10px;
+        }
+
+        .product .icon {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+        }
+
+        .retail-footer {
+            padding: 12px;
+            text-align: center;
+            background: #e2e8f0;
+            font-size: 0.85rem;
+        }
+
+        /* =========================
+           EXPERIMENT 2 FORM
+        ========================== */
+        .form-box {
+            max-width: 600px;
+            margin: 20px auto 0;
+            padding: 24px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 11px 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        input:focus {
+            border-color: #2563eb;
+        }
+
+        input.valid {
+            border-color: #16a34a;
+        }
+
+        input.invalid {
+            border-color: #dc2626;
+        }
+
+        .error {
+            display: block;
+            min-height: 20px;
+            color: #dc2626;
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        .success {
+            color: #15803d;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        /* =========================
+           EXPERIMENT 3 DEBUG DEMO
+        ========================== */
+        .debug-demo {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            padding: 18px;
+            background: #f1f5f9;
+            border-radius: 12px;
+        }
+
+        .debug-sidebar {
+            flex: 0 0 180px;
+            background: #1e293b;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .debug-content {
+            flex: 1;
+            min-width: 0;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .debug-content img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .best-practices {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .practice {
+            padding: 16px;
+            background: #eff6ff;
+            border-radius: 9px;
+        }
+
+        /* =========================
+           FOOTER
+        ========================== */
+        footer {
+            background: #0f172a;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        /* =========================
+           MEDIA QUERIES
+        ========================== */
+
+        /* Tablet */
+        @media (max-width: 900px) {
+            .experiments {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .header-content {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            nav ul {
+                justify-content: flex-start;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            .experiments,
+            .product-grid,
+            .best-practices {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .retail-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .debug-demo {
+                flex-direction: column;
+            }
+
+            .debug-sidebar {
+                flex-basis: auto;
+            }
+
+            .hero {
+                padding: 30px 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            nav a {
+                width: 100%;
+                background: rgba(255,255,255,0.08);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="container header-content">
+        <div class="logo">
+            <h1>Web Development Lab</h1>
+            <p>CO-2 • Integrated Experiments • Weightage: 40%</p>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="#exp1">Experiment 1</a></li>
+                <li><a href="#exp2">Experiment 2</a></li>
+                <li><a href="#exp3">Experiment 3</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+
+    <section class="hero">
+        <h2>CSS & JavaScript Integrated Experiments</h2>
+        <p>
+            A responsive demonstration website covering CSS Flexbox, CSS Grid,
+            media queries, JavaScript form validation, and CSS layout debugging.
+        </p>
+        <span class="badge">CO-2 : Apply CSS & JavaScript • L3</span>
+    </section>
+
+    <section class="experiments">
+        <article class="experiment-card">
+            <h3>Experiment 1</h3>
+            <p>Responsive Layout Design using CSS Grid, Flexbox and media queries.</p>
+            <a class="btn" href="#exp1">View Answer</a>
+        </article>
+
+        <article class="experiment-card">
+            <h3>Experiment 2</h3>
+            <p>Real-time email and phone validation using JavaScript Regular Expressions.</p>
+            <a class="btn" href="#exp2">View Answer</a>
+        </article>
+
+        <article class="experiment-card">
+            <h3>Experiment 3</h3>
+            <p>CSS layout debugging using box model, Flexbox and responsive techniques.</p>
+            <a class="btn" href="#exp3">View Answer</a>
+        </article>
+    </section>
+
+    <!-- EXPERIMENT 1 -->
+    <section id="exp1" class="section">
+        <h2 class="section-title">Experiment 1: Responsive Layout Design</h2>
+
+        <div class="answer">
+            <h4>(a) Analyze the possible reasons for lack of responsiveness.</h4>
+            <ul>
+                <li>Fixed pixel widths may prevent elements from shrinking on small screens.</li>
+                <li>Missing viewport meta tag can cause incorrect mobile scaling.</li>
+                <li>Using fixed margins and absolute positioning can create overlap.</li>
+                <li>Images without max-width: 100% can overflow their containers.</li>
+                <li>Missing media queries means the desktop layout is used on every device.</li>
+                <li>Improper use of Flexbox/Grid can cause alignment and spacing problems.</li>
+            </ul>
+        </div>
+
+        <div class="answer">
+            <h4>(b) Design a responsive webpage layout using Flexbox/Grid.</h4>
+            <p>
+                This website uses <strong>CSS Grid</strong> for the product and experiment
+                layouts and <strong>Flexbox</strong> for the header, navigation and debugging
+                layout. The main sections are divided into header, navigation, content and footer.
+            </p>
+        </div>
+
+        <div class="answer">
+            <h4>(c) Demonstrate adaptation to mobile, tablet and desktop.</h4>
+            <ul>
+                <li><strong>Desktop:</strong> Three-column product and experiment layout.</li>
+                <li><strong>Tablet:</strong> Two-column layout using <code>@media (max-width: 900px)</code>.</li>
+                <li><strong>Mobile:</strong> Single-column layout using <code>@media (max-width: 600px)</code>.</li>
+            </ul>
+        </div>
+
+        <div class="answer">
+            <h4>(d) Implement spacing, alignment and distribution.</h4>
+            <p>
+                The design uses <code>gap</code>, <code>padding</code>, <code>margin</code>,
+                <code>justify-content</code>, <code>align-items</code>, and
+                <code>grid-template-columns</code> to maintain consistent spacing and alignment.
+            </p>
+        </div>
+
+        <div class="answer">
+            <h4>(e) Evaluate effectiveness and suggest improvements.</h4>
+            <p>
+                The layout adapts without horizontal scrolling and keeps the content readable
+                on different screen sizes. Further improvements can include accessibility testing,
+                responsive images, improved keyboard navigation, and testing on more real devices.
+            </p>
+        </div>
+
+        <h3>Responsive Retail Website Demo</h3>
+
+        <div class="retail-demo">
+            <div class="retail-header">
+                <strong>SmartMart</strong>
+                <div class="retail-nav">
+                    <span>Home</span>
+                    <span>Products</span>
+                    <span>Offers</span>
+                    <span>Contact</span>
+                </div>
+            </div>
+
+            <div class="product-grid">
+                <div class="product">
+                    <div class="icon">📱</div>
+                    <strong>Smartphone</strong>
+                    <p>₹24,999</p>
+                </div>
+
+                <div class="product">
+                    <div class="icon">💻</div>
+                    <strong>Laptop</strong>
+                    <p>₹54,999</p>
+                </div>
+
+                <div class="product">
+                    <div class="icon">🎧</div>
+                    <strong>Headphones</strong>
+                    <p>₹2,499</p>
+                </div>
+            </div>
+
+            <div class="retail-footer">
+                Responsive Footer • SmartMart © 2026
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIMENT 2 -->
+    <section id="exp2" class="section">
+        <h2 class="section-title">Experiment 2: Form Validation using JavaScript</h2>
+
+        <div class="answer">
+            <h4>(a) Analyze the issues in the existing validation mechanism.</h4>
+            <ul>
+                <li>Only checking whether a field is empty is insufficient.</li>
+                <li>Invalid email formats may be accepted.</li>
+                <li>Phone numbers may contain letters or an incorrect number of digits.</li>
+                <li>Lack of real-time feedback makes errors difficult for users to identify.</li>
+                <li>Client-side validation should also be supported by server-side validation.</li>
+            </ul>
+        </div>
+
+        <div class="answer">
+            <h4>(b) Design input fields with appropriate HTML attributes.</h4>
+            <p>
+                The form below uses <code>type="email"</code>, <code>type="tel"</code>,
+                <code>required</code>, <code>minlength</code>, and <code>maxlength</code>.
+            </p>
+        </div>
+
+        <div class="answer">
+            <h4>(c) Implement JavaScript Regular Expression validation.</h4>
+            <p>
+                Email validation uses a regular expression to check the basic
+                <strong>username@domain.extension</strong> structure. Phone validation
+                accepts exactly 10 digits in this demonstration.
+            </p>
+        </div>
+
+        <div class="answer">
+            <h4>(d) Display real-time error messages.</h4>
+            <p>
+                JavaScript listens to the <code>input</code> event. When the value is invalid,
+                an error message is displayed immediately and the input border changes.
+            </p>
+        </div>
+
+        <div class="answer">
+            <h4>(e) Evaluate and suggest enhancements.</h4>
+            <p>
+                Real-time validation improves usability because users can correct errors
+                before submission. For production systems, add server-side validation,
+                sanitization, rate limiting, HTTPS, stronger email verification, and
+                country-specific phone validation.
+            </p>
+        </div>
+
+        <div class="form-box">
+            <h3>Registration Form</h3>
+            <br>
+
+            <form id="registrationForm" novalidate>
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input
+                        id="name"
+                        type="text"
+                        required
+                        minlength="3"
+                        placeholder="Enter your name"
+                    >
+                    <span class="error" id="nameError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input
+                        id="email"
+                        type="email"
+                        required
+                        placeholder="example@gmail.com"
+                    >
+                    <span class="error" id="emailError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input
+                        id="phone"
+                        type="tel"
+                        required
+                        minlength="10"
+                        maxlength="10"
+                        inputmode="numeric"
+                        placeholder="10-digit phone number"
+                    >
+                    <span class="error" id="phoneError"></span>
+                </div>
+
+                <button class="btn" type="submit">Register</button>
+                <p id="formSuccess" class="success"></p>
+            </form>
+        </div>
+    </section>
+
+    <!-- EXPERIMENT 3 -->
+    <section id="exp3" class="section">
+        <h2 class="section-title">Experiment 3: CSS Layout Debugging</h2>
+
+        <div class="answer">
+            <h4>(a) Analyze CSS properties responsible for overlapping.</h4>
+            <ul>
+                <li>Incorrect use of <code>position: absolute</code> can remove elements from normal document flow.</li>
+                <li>Fixed widths may become larger than the available viewport.</li>
+                <li>Negative margins can move elements into each other.</li>
+                <li>Large padding and borders can increase element size if box-sizing is not controlled.</li>
+                <li>Missing responsive rules can cause content to overflow during resizing.</li>
+            </ul>
+        </div>
+
+        <div class="answer">
+            <h4>(b) Examine the CSS box model.</h4>
+            <p>
+                Every HTML element consists of <strong>content, padding, border and margin</strong>.
+                This website applies <code>box-sizing: border-box</code> globally so that the
+                declared width includes padding and borders. This makes responsive sizing easier.
+            </p>
+        </div>
+
+        <div class="answer">
+            <h4>(c) Debug using appropriate positioning techniques.</h4>
+            <p>
+                Flexbox is used for the sidebar/content layout. Instead of forcing content with
+                absolute positioning, Flexbox allows elements to remain in normal flow and resize
+                naturally.
+            </p>
+        </div>
+
+        <div class="answer">
+            <h4>(d) Modify CSS to prevent overlap.</h4>
+            <p>
+                The corrected layout uses <code>display: flex</code>, <code>flex</code>,
+                <code>min-width: 0</code>, <code>max-width: 100%</code>, and a mobile media
+                query that changes the layout to a vertical arrangement.
+            </p>
+        </div>
+
+        <div class="answer">
+            <h4>(e) Evaluate and suggest best practices.</h4>
+            <ul>
+                <li>Prefer Flexbox/Grid for page layout.</li>
+                <li>Avoid unnecessary absolute positioning.</li>
+                <li>Use relative units such as %, rem, vw and fr where appropriate.</li>
+                <li>Use <code>box-sizing: border-box</code>.</li>
+                <li>Test at multiple viewport sizes.</li>
+                <li>Use responsive images with <code>max-width: 100%</code>.</li>
+                <li>Keep CSS organized and avoid conflicting rules.</li>
+            </ul>
+        </div>
+
+        <h3>Corrected Layout Demo</h3>
+
+        <div class="debug-demo">
+            <aside class="debug-sidebar">
+                <h3>Sidebar</h3>
+                <p>Flexible width</p>
+                <p>Normal document flow</p>
+            </aside>
+
+            <div class="debug-content">
+                <h3>Main Content</h3>
+                <p>
+                    Resize the browser window. This content remains inside its container
+                    because Flexbox and responsive sizing are used instead of fixed positioning.
+                </p>
+                <div class="best-practices">
+                    <div class="practice">
+                        <strong>Box Sizing</strong>
+                        <p>border-box prevents unexpected element growth.</p>
+                    </div>
+                    <div class="practice">
+                        <strong>Flexible Layout</strong>
+                        <p>Flexbox distributes available space automatically.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <p>CO-2 Web Development Integrated Experiments | HTML • CSS • JavaScript</p>
+</footer>
+
+<script>
+    // =========================
+    // EXPERIMENT 2: FORM VALIDATION
+    // =========================
+
+    const form = document.getElementById("registrationForm");
+
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const phoneInput = document.getElementById("phone");
+
+    const nameError = document.getElementById("nameError");
+    const emailError = document.getElementById("emailError");
+    const phoneError = document.getElementById("phoneError");
+    const formSuccess = document.getElementById("formSuccess");
+
+    // Basic email pattern
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Exactly 10 digits
+    const phoneRegex = /^\d{10}$/;
+
+    function validateName() {
+        const value = nameInput.value.trim();
+
+        if (value.length < 3) {
+            nameError.textContent = "Name must contain at least 3 characters.";
+            nameInput.classList.add("invalid");
+            nameInput.classList.remove("valid");
+            return false;
+        }
+
+        nameError.textContent = "";
+        nameInput.classList.add("valid");
+        nameInput.classList.remove("invalid");
+        return true;
+    }
+
+    function validateEmail() {
+        const value = emailInput.value.trim();
+
+        if (!emailRegex.test(value)) {
+            emailError.textContent = "Enter a valid email address.";
+            emailInput.classList.add("invalid");
+            emailInput.classList.remove("valid");
+            return false;
+        }
+
+        emailError.textContent = "";
+        emailInput.classList.add("valid");
+        emailInput.classList.remove("invalid");
+        return true;
+    }
+
+    function validatePhone() {
+        const value = phoneInput.value.trim();
+
+        if (!phoneRegex.test(value)) {
+            phoneError.textContent = "Phone number must contain exactly 10 digits.";
+            phoneInput.classList.add("invalid");
+            phoneInput.classList.remove("valid");
+            return false;
+        }
+
+        phoneError.textContent = "";
+        phoneInput.classList.add("valid");
+        phoneInput.classList.remove("invalid");
+        return true;
+    }
+
+    // Real-time validation
+    nameInput.addEventListener("input", validateName);
+    emailInput.addEventListener("input", validateEmail);
+    phoneInput.addEventListener("input", validatePhone);
+
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const validName = validateName();
+        const validEmail = validateEmail();
+        const validPhone = validatePhone();
+
+        if (validName && validEmail && validPhone) {
+            formSuccess.textContent = "Registration successful! All inputs are valid.";
+        } else {
+            formSuccess.textContent = "";
+        }
+    });
+</script>
+
+</body>
+</html>

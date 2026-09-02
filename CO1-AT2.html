@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Complaint Portal - CO1 Assignment</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:#f4f6f9;
+    margin:20px;
+    line-height:1.6;
+}
+.container{
+    max-width:1000px;
+    margin:auto;
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,.2);
+}
+h1{
+    text-align:center;
+    color:#0b5ed7;
+}
+h2{
+    background:#0b5ed7;
+    color:white;
+    padding:8px;
+    border-radius:5px;
+}
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:10px;
+}
+table,th,td{
+    border:1px solid #444;
+}
+th{
+    background:#0b5ed7;
+    color:white;
+}
+th,td{
+    padding:10px;
+    text-align:left;
+}
+input,select,textarea{
+    width:100%;
+    padding:8px;
+    margin-top:5px;
+    margin-bottom:12px;
+}
+button{
+    background:#0b5ed7;
+    color:white;
+    padding:10px 20px;
+    border:none;
+    cursor:pointer;
+    border-radius:5px;
+}
+pre{
+    background:#f0f0f0;
+    padding:10px;
+    overflow:auto;
+}
+code{
+    color:#c7254e;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Student Complaint Portal</h1>
+
+<p>
+The Student Complaint Portal allows students to submit complaints related to academics,
+hostel, transport, library, and other college services.
+</p>
+
+<form>
+
+<label>Student Name</label>
+<input type="text">
+
+<label>Register Number</label>
+<input type="text">
+
+<label>Email</label>
+<input type="email">
+
+<label>Complaint Type</label>
+<select>
+<option>Academic</option>
+<option>Hostel</option>
+<option>Transport</option>
+<option>Library</option>
+<option>Other</option>
+</select>
+
+<label>Complaint Description</label>
+<textarea rows="5"></textarea>
+
+<button type="submit">Submit Complaint</button>
+
+</form>
+
+<hr>
+
+<h2>Question 1 : HTTP Response Analysis</h2>
+
+<h3>HTTP Response Header</h3>
+
+<pre>
+HTTP/1.1 200 OK
+Date: Mon, 01 Apr 2026 10:00:00 GMT
+Content-Type: text/html
+Content-Length: -150
+Connection: keep-alive
+</pre>
+
+<b>1. Incorrect Field</b>
+
+<ul>
+<li><code>Content-Length: -150</code> is invalid because Content-Length cannot be negative.</li>
+</ul>
+
+<b>2. Impact</b>
+
+<p>
+When the Complaint Portal sends the confirmation page after a complaint is submitted,
+the browser expects the number of bytes mentioned in Content-Length.
+Since the value is negative, the browser may reject the response or fail to display the page correctly.
+</p>
+
+<b>3. Status Code Analysis</b>
+
+<p>
+Status code <b>200 OK</b> indicates success.
+However, because the header contains an invalid field,
+the response is not completely correct.
+</p>
+
+<b>4. Correct Header</b>
+
+<pre>
+HTTP/1.1 200 OK
+Date: Mon, 01 Apr 2026 10:00:00 GMT
+Content-Type: text/html
+Content-Length: 150
+Connection: keep-alive
+</pre>
+
+<hr>
+
+<h2>Question 2 : DOM Structure Analysis</h2>
+
+<pre>
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Complaint Portal&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div&gt;
+&lt;p&gt;Complaint Submitted
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<b>1. Missing Elements</b>
+
+<ul>
+<li>The &lt;p&gt; tag is not closed.</li>
+</ul>
+
+<b>2. Browser Interpretation</b>
+
+<p>
+Modern browsers automatically insert the missing closing tag and render the page correctly.
+</p>
+
+<b>3. Impact</b>
+
+<ul>
+<li>HTML becomes invalid.</li>
+<li>CSS or JavaScript may behave unexpectedly.</li>
+<li>Rendering usually still works.</li>
+</ul>
+
+<b>4. Correct Code</b>
+
+<pre>
+&lt;div&gt;
+   &lt;p&gt;Complaint Submitted&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+
+<hr>
+
+<h2>Question 3 : GET vs POST in Login System</h2>
+
+<table>
+
+<tr>
+<th>Method</th>
+<th>URL Example</th>
+<th>Data Visibility</th>
+<th>Security</th>
+</tr>
+
+<tr>
+<td>GET</td>
+<td>/login?user=student&pass=1234</td>
+<td>Visible in URL</td>
+<td>Low</td>
+</tr>
+
+<tr>
+<td>POST</td>
+<td>/login</td>
+<td>Hidden in Request Body</td>
+<td>Moderate</td>
+</tr>
+
+</table>
+
+<h3>Answers</h3>
+
+<b>1. Difference</b>
+
+<ul>
+<li>GET sends data through the URL.</li>
+<li>POST sends data inside the request body.</li>
+</ul>
+
+<b>2. Suitable Method</b>
+
+<p>
+POST is the best choice for the Complaint Portal login because usernames and passwords
+should not appear in the URL.
+</p>
+
+<b>3. Risks of GET</b>
+
+<ul>
+<li>Password visible in URL.</li>
+<li>Stored in browser history.</li>
+<li>Stored in server logs.</li>
+<li>Can be shared accidentally.</li>
+</ul>
+
+<b>4. Best Practices</b>
+
+<ul>
+<li>Use POST method.</li>
+<li>Use HTTPS.</li>
+<li>Encrypt passwords.</li>
+<li>Use session authentication.</li>
+<li>Validate all inputs.</li>
+</ul>
+
+<hr>
+
+<h2>Question 4 : HTML Code Inspection</h2>
+
+<pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Complaint Portal&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;h1&gt;Student Complaint Portal
+
+&lt;p&gt;Submit your complaint
+
+&lt;img src="complaint.jpg"&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<b>1. Missing Closing Tags</b>
+
+<ul>
+<li>&lt;/h1&gt;</li>
+<li>&lt;/p&gt;</li>
+</ul>
+
+<b>2. Image Tag Issue</b>
+
+<p>
+The image should contain an <code>alt</code> attribute.
+</p>
+
+<pre>
+&lt;img src="complaint.jpg" alt="Complaint Portal"&gt;
+</pre>
+
+<b>3. Browser Behavior</b>
+
+<ul>
+<li>Automatically closes missing tags.</li>
+<li>Still renders the page.</li>
+<li>HTML is not valid.</li>
+</ul>
+
+<b>4. Correct Version</b>
+
+<pre>
+&lt;h1&gt;Student Complaint Portal&lt;/h1&gt;
+
+&lt;p&gt;Submit your complaint.&lt;/p&gt;
+
+&lt;img src="complaint.jpg" alt="Complaint Portal"&gt;
+</pre>
+
+<hr>
+
+<h2>Question 5 : Browser-Server Communication Flow</h2>
+
+<ol>
+
+<li>User enters <b>www.studentcomplaintportal.com</b></li>
+
+<li>DNS converts the domain name into an IP address.</li>
+
+<li>The browser sends an HTTP request to the web server.</li>
+
+<li>The server processes the complaint request.</li>
+
+<li>The server sends an HTTP response.</li>
+
+<li>The browser renders the Complaint Portal webpage.</li>
+
+</ol>
+
+<h3>Where Delays Can Occur</h3>
+
+<ul>
+<li>DNS lookup</li>
+<li>Internet connection</li>
+<li>Server processing</li>
+<li>Large images</li>
+<li>JavaScript loading</li>
+</ul>
+
+<h3>Role of DNS</h3>
+
+<p>
+DNS converts the website name into an IP address so the browser can locate the Complaint Portal server.
+</p>
+
+<h3>Performance Optimizations</h3>
+
+<ul>
+<li>DNS caching</li>
+<li>Browser caching</li>
+<li>Image optimization</li>
+<li>Minify CSS and JavaScript</li>
+<li>Use HTTPS</li>
+<li>Enable Keep-Alive</li>
+<li>Use a CDN</li>
+</ul>
+
+</div>
+
+</body>
+</html>
